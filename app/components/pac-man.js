@@ -5,6 +5,8 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   squareSize: 40,
   x: 50,
   y: 100,
+  width: 800,
+  height: 600,
   didInsertElement() {
     this.drawCircle();
   },
@@ -25,7 +27,15 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   movePacMan(direction, amount){
     this.incrementProperty(direction, amount);
+    this.clearScreen();
     this.drawCircle();
+  },
+
+  clearScreen() {
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, this.get('width'), this.get('height'));
   },
 
   keyboardShortcuts: {
