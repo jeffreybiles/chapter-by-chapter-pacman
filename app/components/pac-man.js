@@ -13,7 +13,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   drawCircle() {
     let canvas = document.getElementById("myCanvas");
-    let ctx = canvas.getContext("2d");
+    let ctx = this.get('ctx')
     let radius = this.get('squareSize')/2;
     let x = this.get('x');
     let y = this.get('y');
@@ -31,10 +31,14 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     this.drawCircle();
   },
 
-  clearScreen() {
+  ctx: Ember.computed(function(){
     let canvas = document.getElementById("myCanvas");
     let ctx = canvas.getContext("2d");
+    return ctx;
+  }),
 
+  clearScreen() {
+    let ctx = this.get('ctx');
     ctx.clearRect(0, 0, this.get('width'), this.get('height'));
   },
 
