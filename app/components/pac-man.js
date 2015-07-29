@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/component';
 
-let PacMan = Ember.Component.extend({
+let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   didInsertElement() {
     this.drawCircle();
   },
@@ -17,6 +18,13 @@ let PacMan = Ember.Component.extend({
     ctx.arc(x, y, radius, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.fill();
+  },
+
+  keyboardShortcuts: {
+    up() { console.log('up')},
+    down() { console.log('down')},
+    left() { console.log('left')},
+    right() { console.log('right')},
   },
 });
 
