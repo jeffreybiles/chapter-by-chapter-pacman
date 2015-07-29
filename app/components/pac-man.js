@@ -2,6 +2,9 @@ import Ember from 'ember';
 import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/component';
 
 let PacMan = Ember.Component.extend(KeyboardShortcuts, {
+  squareSize: 40,
+  x: 50,
+  y: 100,
   didInsertElement() {
     this.drawCircle();
   },
@@ -9,9 +12,9 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   drawCircle() {
     let canvas = document.getElementById("myCanvas");
     let ctx = canvas.getContext("2d");
-    let radius = 20;
-    let x = 50;
-    let y = 100;
+    let radius = this.get('squareSize')/2;
+    let x = this.get('x');
+    let y = this.get('y');
 
     ctx.fillStyle = '#000';
     ctx.beginPath();
