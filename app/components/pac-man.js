@@ -24,10 +24,10 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   },
 
   keyboardShortcuts: {
-    up() { console.log('up')},
-    down() { console.log('down')},
-    left() { console.log('left')},
-    right() { console.log('right')},
+    up() { this.decrementProperty('y', this.get('squareSize')); this.drawCircle()},
+    down() { this.incrementProperty('y', this.get('squareSize')); this.drawCircle()},
+    left() { this.decrementProperty('x', this.get('squareSize')); this.drawCircle()},
+    right() { this.incrementProperty('x', this.get('squareSize')); this.drawCircle()},
   },
 });
 
