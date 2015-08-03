@@ -3,8 +3,8 @@ import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/component';
 
 let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   squareSize: 40,
-  x: 50,
-  y: 100,
+  x: 0,
+  y: 0,
   width: 800,
   height: 600,
   didInsertElement() {
@@ -14,13 +14,16 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   drawCircle() {
     let canvas = document.getElementById("myCanvas");
     let ctx = this.get('ctx')
-    let radius = this.get('squareSize')/2;
+    let squareSize = this.get('squareSize');
     let x = this.get('x');
     let y = this.get('y');
 
+    let pixelX = (x+1/2) * squareSize;
+    let pixelY = (y+1/2) * squareSize;
+
     ctx.fillStyle = '#000';
     ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+    ctx.arc(pixelX, pixelY, squareSize/2, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.fill();
   },
@@ -43,10 +46,10 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   },
 
   keyboardShortcuts: {
-    up() { this.movePacMan('y', -1 * this.get('squareSize'))},
-    down() { this.movePacMan('y', this.get('squareSize'))},
-    left() { this.movePacMan('x', -1 * this.get('squareSize'))},
-    right() { this.movePacMan('x', this.get('squareSize'))},
+    up() { this.movePacMan('y', -1);},
+    down() { this.movePacMan('y', 1);},
+    left() { this.movePacMan('x', -1);},
+    right() { this.movePacMan('x', 1);},
   },
 });
 
