@@ -5,14 +5,19 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   squareSize: 40,
   x: 0,
   y: 0,
-  width: 800,
-  height: 600,
+  width: 20,
+  height: 15,
+  pixelHeight: Ember.computed(function(){
+    return this.get('height') * this.get('squareSize')
+  }),
+  pixelWidth: Ember.computed(function(){
+    return this.get('width') * this.get('squareSize')
+  }),
   didInsertElement() {
     this.drawCircle();
   },
 
   drawCircle() {
-    let canvas = document.getElementById("myCanvas");
     let ctx = this.get('ctx')
     let squareSize = this.get('squareSize');
     let x = this.get('x');
@@ -30,6 +35,18 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   movePacMan(direction, amount){
     this.incrementProperty(direction, amount);
+    let x = this.get('x');
+    let y = this.get('y');
+    let height = this.get('height');
+    let width = this.get('width');
+
+    let pacOutOfBounds = x < 0 ||
+                         y < 0 ||
+                         x >= width ||
+                         y >= height
+    if(pacOutOfBounds) {
+      this.decrementProperty(direction, amount)
+    }
     this.clearScreen();
     this.drawCircle();
   },
@@ -42,7 +59,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   clearScreen() {
     let ctx = this.get('ctx');
-    ctx.clearRect(0, 0, this.get('width'), this.get('height'));
+    ctx.clearRect(0, 0, this.get('pixelWidth'), this.get('pixelHeight'));
   },
 
   keyboardShortcuts: {
