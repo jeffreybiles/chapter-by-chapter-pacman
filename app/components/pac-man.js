@@ -45,7 +45,8 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     let ctx = this.get('ctx');
     ctx.fillStyle = '#000';
 
-    this.get('walls').forEach((wall)=>{
+    let walls = this.get('walls');
+    walls.forEach(function(wall){
       ctx.fillRect(wall.x * squareSize,
                    wall.y * squareSize,
                    squareSize,
@@ -55,6 +56,27 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   movePacMan(direction, amount){
     this.incrementProperty(direction, amount);
+
+    if(this.collidedWithBorder() || this.collidedWithWall()) {
+      this.decrementProperty(direction, amount)
+    }
+    this.clearScreen();
+    this.drawWalls();
+    this.drawCircle();
+  },
+
+  collidedWithWall: function(){
+    let x = this.get('x');
+    let y = this.get('y');
+    let walls = this.get('walls');
+
+    return walls.any(function(wall){
+      return x == wall.x &&
+             y == wall.y
+    })
+  },
+
+  collidedWithBorder: function(){
     let x = this.get('x');
     let y = this.get('y');
     let height = this.get('height');
@@ -64,12 +86,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
                          y < 0 ||
                          x >= width ||
                          y >= height
-    if(pacOutOfBounds) {
-      this.decrementProperty(direction, amount)
-    }
-    this.clearScreen();
-    this.drawWalls();
-    this.drawCircle();
+    return pacOutOfBounds
   },
 
   ctx: Ember.computed(function(){
