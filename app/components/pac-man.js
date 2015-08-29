@@ -5,8 +5,12 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   squareSize: 40,
   x: 0,
   y: 0,
-  width: 20,
-  height: 15,
+  width: Ember.computed(function(){
+    return this.get('grid.firstObject.length')
+  }),
+  height: Ember.computed(function(){
+    return this.get('grid.length')
+  }),
   pixelHeight: Ember.computed(function(){
     return this.get('height') * this.get('squareSize')
   }),
