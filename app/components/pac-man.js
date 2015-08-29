@@ -79,12 +79,9 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   collidedWithWall: function(){
     let x = this.get('x');
     let y = this.get('y');
-    let walls = this.get('walls');
+    let grid = this.get('grid');
 
-    return walls.any(function(wall){
-      return x == wall.x &&
-             y == wall.y
-    })
+    return grid[y][x] == 1
   },
 
   collidedWithBorder: function(){
