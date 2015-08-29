@@ -13,11 +13,14 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   pixelWidth: Ember.computed(function(){
     return this.get('width') * this.get('squareSize')
   }),
-  walls: [
-    {x: 1, y: 1},
-    {x: 10, y: 5}
+  grid: [
+    [0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 1, 0, 1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1],
   ],
-
 
   didInsertElement() {
     this.drawWalls();
@@ -45,12 +48,16 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     let ctx = this.get('ctx');
     ctx.fillStyle = '#000';
 
-    let walls = this.get('walls');
-    walls.forEach(function(wall){
-      ctx.fillRect(wall.x * squareSize,
-                   wall.y * squareSize,
-                   squareSize,
-                   squareSize)
+    let grid = this.get('grid');
+    grid.forEach(function(row, rowIndex){
+      row.forEach(function(cell, columnIndex){
+        if(cell == 1){
+          ctx.fillRect(columnIndex * squareSize,
+                       rowIndex * squareSize,
+                       squareSize,
+                       squareSize)
+        }
+      })
     })
   },
 
