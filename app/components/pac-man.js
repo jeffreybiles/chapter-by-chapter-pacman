@@ -28,21 +28,31 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
   didInsertElement() {
     this.drawGrid();
-    this.drawCircle();
+    this.drawPac();
   },
 
-  drawCircle() {
-    let ctx = this.get('ctx')
-    let squareSize = this.get('squareSize');
+  drawPac(){
     let x = this.get('x');
     let y = this.get('y');
+    let radiusDivisor = 2;
+    this.drawCircle(x, y, radiusDivisor)
+  },
+
+  drawPellet(x, y){
+    let radiusDivisor = 6;
+    this.drawCircle(x, y, radiusDivisor)
+  },
+
+  drawCircle(x, y, radiusDivisor) {
+    let ctx = this.get('ctx')
+    let squareSize = this.get('squareSize');
 
     let pixelX = (x+1/2) * squareSize;
     let pixelY = (y+1/2) * squareSize;
 
     ctx.fillStyle = '#000';
     ctx.beginPath();
-    ctx.arc(pixelX, pixelY, squareSize/2, 0, Math.PI * 2, false);
+    ctx.arc(pixelX, pixelY, squareSize/radiusDivisor, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.fill();
   },
@@ -61,15 +71,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
                        squareSize,
                        squareSize)
         } else if(cell == 2){
-          ctx.beginPath();
-          ctx.arc((columnIndex + 1/2) * squareSize,
-                  (rowIndex + 1/2) * squareSize,
-                  squareSize / 6,
-                  0,
-                  Math.PI * 2,
-                  false);
-          ctx.closePath();
-          ctx.fill();
+          this.drawPellet(columnIndex, rowIndex);
         }
       })
     })
@@ -83,7 +85,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     }
     this.clearScreen();
     this.drawGrid();
-    this.drawCircle();
+    this.drawPac();
   },
 
   collidedWithWall: function(){
