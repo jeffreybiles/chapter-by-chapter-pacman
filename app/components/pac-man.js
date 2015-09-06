@@ -88,14 +88,14 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
       this.decrementProperty(direction, amount)
     }
 
-    this.collectAnyPellets()
+    this.processAnyPellets()
 
     this.clearScreen();
     this.drawGrid();
     this.drawPac();
   },
 
-  collectAnyPellets: function(){
+  processAnyPellets: function(){
     let x = this.get('x');
     let y = this.get('y');
     let grid = this.get('grid');
