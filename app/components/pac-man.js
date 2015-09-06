@@ -83,9 +83,22 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     if(this.collidedWithBorder() || this.collidedWithWall()) {
       this.decrementProperty(direction, amount)
     }
+
+    this.collectAnyPellets()
+
     this.clearScreen();
     this.drawGrid();
     this.drawPac();
+  },
+
+  collectAnyPellets: function(){
+    let x = this.get('x');
+    let y = this.get('y');
+    let grid = this.get('grid');
+
+    if(grid[y][x] == 2){
+      grid[y][x] = 0;
+    }
   },
 
   collidedWithWall: function(){
