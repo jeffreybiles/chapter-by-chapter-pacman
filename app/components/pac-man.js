@@ -3,6 +3,7 @@ import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/component';
 
 let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   score: 0,
+  levelNumber: 1,
   squareSize: 40,
   x: 0,
   y: 0,
