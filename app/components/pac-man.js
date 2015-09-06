@@ -27,7 +27,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   ],
 
   didInsertElement() {
-    this.drawWalls();
+    this.drawGrid();
     this.drawCircle();
   },
 
@@ -47,7 +47,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     ctx.fill();
   },
 
-  drawWalls: function(){
+  drawGrid: function(){
     let squareSize = this.get('squareSize');
     let ctx = this.get('ctx');
     ctx.fillStyle = '#000';
@@ -82,7 +82,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
       this.decrementProperty(direction, amount)
     }
     this.clearScreen();
-    this.drawWalls();
+    this.drawGrid();
     this.drawCircle();
   },
 
