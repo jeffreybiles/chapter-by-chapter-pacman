@@ -18,12 +18,12 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     return this.get('width') * this.get('squareSize')
   }),
   grid: [
-    [0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 1, 0, 1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1],
+    [2, 2, 2, 2, 2, 2, 2, 1],
+    [2, 1, 2, 1, 2, 2, 2, 1],
+    [2, 2, 1, 2, 2, 2, 2, 1],
+    [2, 2, 2, 2, 2, 2, 2, 1],
+    [2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 1],
   ],
 
   didInsertElement() {
@@ -60,6 +60,16 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
                        rowIndex * squareSize,
                        squareSize,
                        squareSize)
+        } else if(cell == 2){
+          ctx.beginPath();
+          ctx.arc((columnIndex + 1/2) * squareSize,
+                  (rowIndex + 1/2) * squareSize,
+                  squareSize / 6,
+                  0,
+                  Math.PI * 2,
+                  false);
+          ctx.closePath();
+          ctx.fill();
         }
       })
     })
