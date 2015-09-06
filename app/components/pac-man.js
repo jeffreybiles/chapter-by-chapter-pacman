@@ -63,8 +63,8 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     ctx.fillStyle = '#000';
 
     let grid = this.get('grid');
-    grid.forEach(function(row, rowIndex){
-      row.forEach(function(cell, columnIndex){
+    grid.forEach((row, rowIndex)=>{
+      row.forEach((cell, columnIndex)=>{
         if(cell == 1){
           ctx.fillRect(columnIndex * squareSize,
                        rowIndex * squareSize,
