@@ -93,13 +93,27 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     this.processAnyPellets()
 
     if(this.levelNumberComplete()){
-      console.log('level complete!')
+      this.restartLevel()
       this.incrementProperty('levelNumber')
     }
 
     this.clearScreen();
     this.drawGrid();
     this.drawPac();
+  },
+
+  restartLevel: function(){
+    this.set('x', 0);
+    this.set('y', 0);
+
+    let grid = this.get('grid');
+    grid.forEach((row, rowIndex)=>{
+      row.forEach((cell, columnIndex)=>{
+        if(cell == 0){
+          grid[rowIndex][columnIndex] = 2
+        }
+      })
+    })
   },
 
   levelNumberComplete: function(){
