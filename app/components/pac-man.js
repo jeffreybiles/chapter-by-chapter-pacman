@@ -31,6 +31,17 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     this.drawPac();
   },
 
+  drawWall: function(x, y){
+    let squareSize = this.get('squareSize');
+    let ctx = this.get('ctx');
+    ctx.fillStyle = '#000';
+
+    ctx.fillRect(x * squareSize,
+                 y * squareSize,
+                 squareSize,
+                 squareSize)
+  },
+
   drawPac(){
     let x = this.get('x');
     let y = this.get('y');
@@ -58,18 +69,11 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
   },
 
   drawGrid: function(){
-    let squareSize = this.get('squareSize');
-    let ctx = this.get('ctx');
-    ctx.fillStyle = '#000';
-
     let grid = this.get('grid');
     grid.forEach((row, rowIndex)=>{
       row.forEach((cell, columnIndex)=>{
         if(cell == 1){
-          ctx.fillRect(columnIndex * squareSize,
-                       rowIndex * squareSize,
-                       squareSize,
-                       squareSize)
+          this.drawWall(columnIndex, rowIndex);
         } else if(cell == 2){
           this.drawPellet(columnIndex, rowIndex);
         }
