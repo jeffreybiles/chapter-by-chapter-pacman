@@ -2,6 +2,7 @@ import Ember from 'ember';
 import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/component';
 
 let PacMan = Ember.Component.extend(KeyboardShortcuts, {
+  score: 0,
   squareSize: 40,
   x: 0,
   y: 0,
@@ -102,6 +103,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
     if(grid[y][x] == 2){
       grid[y][x] = 0;
+      this.incrementProperty('score')
     }
   },
 
