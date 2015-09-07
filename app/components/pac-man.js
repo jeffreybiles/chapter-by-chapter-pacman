@@ -92,11 +92,6 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
 
     this.processAnyPellets()
 
-    if(this.levelNumberComplete()){
-      this.restartLevel()
-      this.incrementProperty('levelNumber')
-    }
-
     this.clearScreen();
     this.drawGrid();
     this.drawPac();
@@ -116,7 +111,7 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     })
   },
 
-  levelNumberComplete: function(){
+  levelComplete: function(){
     let hasPelletsLeft = false;
     let grid = this.get('grid');
 
@@ -138,6 +133,11 @@ let PacMan = Ember.Component.extend(KeyboardShortcuts, {
     if(grid[y][x] == 2){
       grid[y][x] = 0;
       this.incrementProperty('score')
+
+      if(this.levelComplete()){
+        this.incrementProperty('levelNumber')
+        this.restartLevel()
+      }
     }
   },
 
